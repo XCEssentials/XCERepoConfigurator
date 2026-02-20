@@ -35,7 +35,6 @@ let package = Package(
             name: "XCERepoConfiguratorAllTests",
             dependencies: [
                 "XCERepoConfigurator",
-                "Version",
                 .product(name: "Hamcrest", package: "SwiftHamcrest")
             ],
             path: "Tests/AllTests"
