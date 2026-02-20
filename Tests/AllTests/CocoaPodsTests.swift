@@ -26,7 +26,7 @@
 
 import XCTest
 
-import SwiftHamcrest
+import Hamcrest
 import Version
 
 @testable

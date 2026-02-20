@@ -27,7 +27,7 @@
 import XCTest
 
 import PathKit
-import SwiftHamcrest
+import Hamcrest
 
 // @testable
 import XCERepoConfigurator

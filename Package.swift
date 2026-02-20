@@ -17,7 +17,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/kylef/PathKit", from: "1.0.0"),
-        .package(url: "https://github.com/mxcl/Version.git", from: "1.0.0"),
+        .package(url: "https://github.com/mxcl/Version.git", from: "2.0.0"),
         .package(url: "https://github.com/JohnSundell/ShellOut.git", from: "2.0.0"),
         .package(url: "https://github.com/nschum/SwiftHamcrest", from: "2.2.1")
     ],
@@ -36,7 +36,7 @@ let package = Package(
             dependencies: [
                 "XCERepoConfigurator",
                 "Version",
-                "SwiftHamcrest"
+                "Hamcrest"
             ],
             path: "Tests/AllTests"
         ),
