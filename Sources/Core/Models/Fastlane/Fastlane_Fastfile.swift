@@ -25,6 +25,7 @@
  */
 
 import PathKit
+import Version
 
 //---
 
@@ -84,7 +85,7 @@ extension Fastlane.Fastfile
     func defaultHeader(
         optOutUsage: Bool = false,
         autoUpdateFastlane: Bool = false,
-        minimumFastlaneVersion: VersionString = Defaults.minimumFastlaneVersion
+        minimumFastlaneVersion: Version = Defaults.minimumFastlaneVersion
         ) -> Self
     {
         //swiftlint:disable line_length

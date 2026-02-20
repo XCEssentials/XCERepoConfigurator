@@ -27,6 +27,7 @@
 import Foundation
 
 import PathKit
+import Version
 
 //---
 
@@ -35,7 +36,7 @@ enum Defaults
 {
     public
     static
-    let initialVersionString: VersionString = "0.0.1"
+    let initialVersionString: Version = Version(0, 0, 1)
 
     public
     static
@@ -47,7 +48,7 @@ enum Defaults
 
     public
     static
-    let minimumFastlaneVersion: VersionString = "2.100.0"
+    let minimumFastlaneVersion: Version = Version(2, 100, 0)
 
     public
     static
