@@ -119,18 +119,18 @@ extension FastlaneTests
     {
         let targetOutput = { """
             # Customise this file, documentation can be found here:
-            # https://github.com/KrauseFx/fastlane/tree/master/docs
-            # All available actions: https://github.com/KrauseFx/fastlane/blob/master/docs/Actions.md
+            # https://docs.fastlane.tools
+            # All available actions: https://docs.fastlane.tools/actions
             # can also be listed using the `fastlane actions` command
 
             # Change the syntax highlighting to Ruby
             # All lines starting with a # are ignored when running `fastlane`
 
-            # More information about multiple platforms in fastlane: https://github.com/KrauseFx/fastlane/blob/master/docs/Platforms.md
-            # All available actions: https://github.com/KrauseFx/fastlane/blob/master/docs/Actions.md
+            # More information about multiple platforms in fastlane: https://docs.fastlane.tools/advanced/lanes/#platform
+            # All available actions: https://docs.fastlane.tools/actions
 
             # By default, fastlane will send which actions are used
-            # No personal data is shared, more information on https://github.com/fastlane/enhancer
+            # No personal data is shared, more information on https://docs.fastlane.tools/actions/opt_out_usage/
             # Uncomment the following line to opt out
             # opt_out_usage
 
