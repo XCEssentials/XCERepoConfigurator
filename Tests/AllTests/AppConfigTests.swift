@@ -60,98 +60,15 @@ let project = try! Spec.Project(
     ]
 )
 
-fileprivate
-enum Modules
-{
-    static
-    var MobileViews: Spec.Module
-    {
-        return try! .init(
-            project: project,
-            name: #function,
-            summary: "[View] level types according to MVVMSE.",
-            deploymentTargets: project
-                .deploymentTargets
-                .filter{ $0.platform == .iOS }
-        )
-    }
-    
-    static
-    var ViewModels: Spec.Module
-    {
-        return try! .init(
-            project: project,
-            name: #function,
-            summary: "[ViewModel] level types according to MVVMSE."
-        )
-    }
-    
-    static
-    var Models: Spec.Module
-    {
-        return try! .init(
-            project: project,
-            name: #function,
-            summary: "[Model] level types according to MVVMSE."
-        )
-    }
-    
-    static
-    var Services: Spec.Module
-    {
-        return try! .init(
-            project: project,
-            name: #function,
-            summary: "[Service] level types according to MVVMSE."
-        )
-    }
-}
-
 //---
 
 final
 class AppConfigTests: XCTestCase
 {
     // MARK: Type level members
-    
+
     static
-    var allTests = [
-        ("testAppModules", testAppModules)
+    var allTests: [(String, (AppConfigTests) -> () throws -> Void)] = [
     ]
-}
-
-//---
-
-extension AppConfigTests
-{
-    func testAppModules()
-    {
-        let moduleName = "MobileViews"
-        let productName = moduleName
-        let moduleSummary = "[View] level types according to MVVMSE."
-        let podspecLocation: Path = [productName + "." + CocoaPods.Podspec.extension]
-        
-        let locations = (
-            mainSources: Spec.Locations.sources + moduleName,
-            mainResources: Spec.Locations.resources + moduleName,
-            testsSources: Spec.Locations.tests + "\(moduleName)Tests",
-            testsResources: Spec.Locations.resources + "\(moduleName)Tests"
-        )
-        
-        assertThat(Modules.MobileViews.product.name == productName)
-        assertThat(Modules.MobileViews.product.summary == moduleSummary)
-        assertThat(Modules.MobileViews.deploymentTargets.count == 1)
-        assertThat(Modules.MobileViews.deploymentTargets.map{ $0.platform }, hasItem(.iOS))
-        assertThat(Modules.MobileViews.isCrossPlatform == false)
-        assertThat(Modules.MobileViews.podspecLocation == podspecLocation)
-        
-        assertThat(Modules.MobileViews.main.name == moduleName)
-        assertThat(Modules.MobileViews.main.sourcesLocation == locations.mainSources)
-        assertThat(Modules.MobileViews.main.resourcesLocation == locations.mainResources)
-        
-        assertThat(Modules.MobileViews.tests.name == "\(moduleName)Tests")
-        assertThat(Modules.MobileViews.tests.sourcesLocation == locations.testsSources)
-        assertThat(Modules.MobileViews.tests.resourcesLocation == locations.testsResources)
-    }
 }
 

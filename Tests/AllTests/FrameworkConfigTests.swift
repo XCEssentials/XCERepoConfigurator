@@ -77,23 +77,6 @@ let project = try! Spec.Project(
     ]
 )
 
-// NOTE: declare as 'var' to call 'readCurrentVersion' method
-fileprivate
-let cocoaPod = try! Spec.CocoaPod(
-    companyInfo: .from(company),
-    productInfo: .from(project),
-    authors: [
-        (name: "Maxim Khatskevich", email: "maxim@khatskevi.ch")
-    ]
-)
-
-fileprivate
-let subSpecs = (
-    core: Spec.CocoaPod.SubSpec("Core"),
-    operators: Spec.CocoaPod.SubSpec("Operators"),
-    tests: Spec.CocoaPod.SubSpec.tests()
-)
-
 //---
 
 final
@@ -106,10 +89,7 @@ class FrameworkConfigTests: XCTestCase
         ("testLocalRepo", testLocalRepo),
         ("testRemoteRepo", testRemoteRepo),
         ("testCompany", testCompany),
-        ("testProject", testProject),
-        ("testCocoaPod", testCocoaPod),
-        ("testCoreSubSpec", testCoreSubSpec),
-        ("testTestsSubSpec", testTestsSubSpec)
+        ("testProject", testProject)
     ]
 }
 
@@ -148,50 +128,4 @@ extension FrameworkConfigTests
         assertThat(project.location == [localRepo.name + "." + Xcode.Project.extension])
     }
     
-    func testCocoaPod()
-    {
-        let cocoaPodProductName = company.prefix + project.name
-        let podspec: Path = ["\(cocoaPodProductName).\(CocoaPods.Podspec.extension)"]
-        let generatedXcodeProjectLocation: Path = ["Xcode"]
-            + cocoaPodProductName
-            + "Pods.\(Xcode.Project.extension)"
-        
-        assertThat(cocoaPod.company.name == company.name)
-        assertThat(cocoaPod.company.identifier == company.identifier)
-        assertThat(cocoaPod.company.prefix == company.prefix)
-        assertThat(cocoaPod.product.name == cocoaPodProductName)
-        assertThat(cocoaPod.product.summary == project.summary)
-        assertThat(cocoaPod.authors.count == 1)
-        assertThat(cocoaPod.authors[0].name == "Maxim Khatskevich")
-        assertThat(cocoaPod.currentVersion == Defaults.initialVersionString)
-        assertThat(cocoaPod.xcodeArtifactsLocation == ["Xcode"])
-        assertThat(cocoaPod.podspecLocation == podspec)
-        assertThat(cocoaPod.generatedXcodeProjectLocation == generatedXcodeProjectLocation)
-    }
-    
-    func testCoreSubSpec()
-    {
-        let sources = Spec.Locations.sources
-        let resources = Spec.Locations.resources
-        let name = "Core"
-        
-        assertThat(subSpecs.core.name == name)
-        assertThat(subSpecs.core.sourcesLocation == (sources + name))
-        assertThat(subSpecs.core.sourcesPattern == (sources + name + "**" + "*").string)
-        assertThat(subSpecs.core.resourcesLocation == (resources + name))
-        assertThat(subSpecs.core.resourcesPattern == (resources + name + "**" + "*").string)
-        assertThat(subSpecs.core.linterCfgLocation == (sources + name))
-        assertThat(subSpecs.core.tests == false)
-    }
-    
-    func testTestsSubSpec()
-    {
-        let tests = Spec.Locations.tests
-        let defaultTestsSubSpecName = "AllTests"
-        
-        assertThat(subSpecs.tests.name == defaultTestsSubSpecName)
-        assertThat(subSpecs.tests.sourcesLocation == (tests + defaultTestsSubSpecName))
-        assertThat(subSpecs.tests.sourcesPattern == (tests + defaultTestsSubSpecName + "**" + "*").string)
-        assertThat(subSpecs.tests.tests == true)
-    }
 }

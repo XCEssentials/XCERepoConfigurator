@@ -43,19 +43,7 @@ enum Defaults
 
     public
     static
-    let specVariable = "s"
-
-    public
-    static
-    let subSpecVariable = "ss"
-
-    public
-    static
     let tstSuffix = "Tests"
-
-    public
-    static
-    let podsFromSpec = "podspec"
 
     public
     static
@@ -68,10 +56,6 @@ enum Defaults
     public
     static
     let archivesExportLocation: Path = [".archives"]
-
-    public
-    static
-    let cocoapodsVersion: VersionString = "1.7.0"
 
     public
     static
@@ -88,8 +72,4 @@ enum Defaults
     public
     static
     let licenseFileName = "LICENSE"
-    
-    public
-    static
-    let masterSpec: Path = ["Project.spec"]
 }

@@ -75,7 +75,6 @@ extension Git.RepoIgnore
             .addMacOSSection()
             .addCocoaSection()
             .addSwiftPackageManagerSection(ignoreSources: ignoreDependenciesSources)
-            .addCocoaPodsSection(ignoreSources: ignoreDependenciesSources)
             .addFastlaneSection()
             .addArchivesExportPathSection(archivesExportLocation)
 
@@ -101,7 +100,6 @@ extension Git.RepoIgnore
             .addMacOSSection()
             .addCocoaSection()
             .addSwiftPackageManagerSection(ignoreSources: ignoreDependenciesSources)
-            .addCocoaPodsSection(ignoreSources: ignoreDependenciesSources)
             .addFastlaneSection()
 
         _ = result.add(
@@ -234,32 +232,6 @@ extension Git.RepoIgnore
             .build/
 
             ### Swift Package Manager ###
-            # ==========
-            #
-            #
-            #
-            """
-
-        //---
-
-        return self
-    }
-
-    func addCocoaPodsSection(
-        ignoreSources: Bool
-        ) -> Git.RepoIgnore
-    {
-        buffer <<< """
-
-            # ==========
-            ### CocoaPods ###
-
-            # NOTE: never ignore the lock file.
-            # See https://guides.cocoapods.org/using/using-cocoapods.html#what-is-podfilelock
-
-            \((ignoreSources ? "" : "# "))Pods/
-
-            ### CocoaPods ###
             # ==========
             #
             #

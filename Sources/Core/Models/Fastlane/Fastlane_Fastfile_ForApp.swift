@@ -67,17 +67,14 @@ extension Fastlane.Fastfile.ForApp
         beginningEntries: [String] = [],
         ensureGitBranch: String? = Defaults.releaseGitBranchesRegEx,
         project: Spec.Project,
-        masterSpec: Path = Defaults.masterSpec,
-        otherPodSpecs: [Path] = [],
         endingEntries: [String] = []
         ) -> Self
     {
         let laneName = laneName
             ?? String(#function.split(separator: "(").first!)
-        
+
         let project = project.location
-        let allPodspecs = [masterSpec] + otherPodSpecs
-        
+
         //---
 
         main <<< """
@@ -88,15 +85,15 @@ extension Fastlane.Fastfile.ForApp
         main.indentation.nest{
 
             main <<< beginningEntries
-            
+
             main <<< beginningEntries.isEmpty.mapIf(false){ """
 
                 # ===
                 """
             }
-            
+
             main <<< ensureGitBranch.map{ """
-                
+
                 ensure_git_branch(
                     branch: '\($0)'
                 )
@@ -104,21 +101,13 @@ extension Fastlane.Fastfile.ForApp
             }
 
             main <<< { """
-                
+
                 ensure_git_status_clean
                 """
             }()
 
             main <<< { """
-                
-                # === Read current version number
 
-                versionNumber = version_get_podspec(
-                    path: '\(masterSpec)'
-                )
-                
-                puts 'Current VERSION number: ' + versionNumber
-                
                 # === Infer new version number
 
                 defaultNewVersion = git_branch.split('/').last
@@ -141,7 +130,7 @@ extension Fastlane.Fastfile.ForApp
                     )
 
                 end
-                
+
                 newBuildNumber = number_of_commits.to_s
 
                 # === Apply NEW version & build number
@@ -155,126 +144,28 @@ extension Fastlane.Fastfile.ForApp
                     xcodeproj: '\(project)',
                     build_number: newBuildNumber
                 )
-                
+
                 """
             }()
-            
-            main <<< allPodspecs.map{ """
-                
-                version_bump_podspec(
-                    path: '\($0)',
-                    version_number: newVersionNumber
-                )
-                """
-            }
-            
+
             main <<< { """
 
                 # ===
 
                 commit_version_bump(
                     message: 'Version Bump to ' + newVersionNumber + ' (' + newBuildNumber + ')',
-                    xcodeproj: '\(project)',
-                    include: \(allPodspecs.map{ $0.string })
+                    xcodeproj: '\(project)'
                 )
                 """
             }()
-            
+
             main <<< endingEntries.isEmpty.mapIf(false){ """
-                
+
                 # ===
-                
+
                 """
             }
-            
-            main <<< endingEntries
-        }
 
-        main <<< """
-
-            end # lane :\(laneName)
-            """
-
-        //---
-
-        return self
-    }
-
-    func reconfigureProject(
-        laneName: String? = nil,
-        beginningEntries: [String] = [],
-        project: Spec.Project,
-        callGems: GemCallMethod = .viaBundler,
-        scriptBuildPhases: (ScriptBuildPhaseContext) throws -> Void = { _ in },
-        buildSettings: (BuildSettingsContext) throws -> Void = { _ in },
-        endingEntries: [String] = []
-        ) rethrows -> Self
-    {
-        let laneName = laneName
-            ?? String(#function.split(separator: "(").first!)
-        
-        //---
-
-        _ = require(
-            CocoaPods.gemName,
-            Xcodeproj.gemName
-        )
-        
-        //---
-
-        main <<< """
-
-            lane :\(laneName) do
-
-            """
-
-        try main.indentation.nest{
-
-            main <<< beginningEntries
-            
-            main <<< beginningEntries.isEmpty.mapIf(false){ """
-                
-                # ===
-                """
-            }
-            
-            main <<< { """
-                
-                # === Re-integrate dependencies
-
-                # default initial location for any command
-                # is inside 'Fastlane' folder
-
-                sh 'cd ./.. && \(CocoaPods.call(callGems)) install'
-
-                # === Sort all project entries
-
-                # default initial location for any command
-                # is inside 'Fastlane' folder
-
-                sh 'cd ./.. && \(Xcodeproj.call(callGems)) sort "\(project.location)"'
-                """
-            }()
-
-            try scriptBuildPhases(
-                .init(
-                    main
-                )
-            )
-            
-            try buildSettings(
-                .init(
-                    main
-                )
-            )
-            
-            main <<< endingEntries.isEmpty.mapIf(false){ """
-                
-                # ===
-                
-                """
-            }
-            
             main <<< endingEntries
         }
 
