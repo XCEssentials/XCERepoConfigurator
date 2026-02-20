@@ -69,7 +69,7 @@ extension Fastlane
 
         public
         init(
-            enableRequiredGems: Bool = false // does not work properly yet
+            enableRequiredGems: Bool = false // TODO: verify and enable by default
             )
         {
             self.enableRequiredGems = enableRequiredGems
@@ -127,13 +127,8 @@ extension Fastlane.Fastfile
         _ gems: String...
         ) -> Self
     {
-        gems.joined(separator: "\n")
-            .split(separator: "\n")
-            .map{ "fastlane_require '\($0)'" }
-            .forEach{ requiredGems.insert($0) }
-     
-        //---
-        
+        gems.forEach { requiredGems.insert("fastlane_require '\($0)'") }
+
         return self
     }
     
