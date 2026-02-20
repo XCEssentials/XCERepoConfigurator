@@ -76,7 +76,6 @@ extension Git.RepoIgnore
             .addCocoaSection()
             .addSwiftPackageManagerSection(ignoreSources: ignoreDependenciesSources)
             .addCocoaPodsSection(ignoreSources: ignoreDependenciesSources)
-            .addCarthageSection(ignoreSources: ignoreDependenciesSources)
             .addFastlaneSection()
             .addArchivesExportPathSection(archivesExportLocation)
 
@@ -103,7 +102,6 @@ extension Git.RepoIgnore
             .addCocoaSection()
             .addSwiftPackageManagerSection(ignoreSources: ignoreDependenciesSources)
             .addCocoaPodsSection(ignoreSources: ignoreDependenciesSources)
-            .addCarthageSection(ignoreSources: ignoreDependenciesSources)
             .addFastlaneSection()
 
         _ = result.add(
@@ -262,30 +260,6 @@ extension Git.RepoIgnore
             \((ignoreSources ? "" : "# "))Pods/
 
             ### CocoaPods ###
-            # ==========
-            #
-            #
-            #
-            """
-
-        //---
-
-        return self
-    }
-
-    func addCarthageSection(
-        ignoreSources: Bool
-        ) -> Git.RepoIgnore
-    {
-        buffer <<< """
-
-            # ==========
-            ### Carthage ###
-
-            Carthage/Build
-            \((ignoreSources ? "" : "# "))Carthage/Checkouts
-
-            ### Carthage ###
             # ==========
             #
             #

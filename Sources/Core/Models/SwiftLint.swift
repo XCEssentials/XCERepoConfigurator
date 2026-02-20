@@ -208,7 +208,6 @@ extension SwiftLint
 
             buffer <<< setXCEDefaults.mapIf(true){ """
                 - Resources
-                - Carthage
                 - Pods
                 """
             }

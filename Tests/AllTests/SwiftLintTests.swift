@@ -77,7 +77,6 @@ extension SwiftLintTests
 
             excluded: # paths to ignore during linting. Takes precedence over `included`.
               - Resources
-              - Carthage
               - Pods
               - Templates
             """

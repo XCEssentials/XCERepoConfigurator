@@ -224,47 +224,6 @@ extension ReadMe
         return self
     }
 
-    func addCarthageCompatibleBadge(
-        status: String = "compatible",
-        color: String = "brightgreen",
-        _ parameters: Shields.Parameters = .parameters()
-        ) throws -> ReadMe
-    {
-        let imgAltText = "Carthage Compatible"
-
-        let linkToBadge = try Shields
-            .Badge
-            .static(
-                "Carthage",
-                status: status,
-                color: color,
-                parameters
-            )
-            .output
-            .absoluteString
-
-        let link = "https://github.com/Carthage/Carthage"
-
-        let mdImage = Markdown.image(
-            imgAltText,
-            link: linkToBadge
-        )
-
-        let result = Markdown.embed(
-            mdImage,
-            intoLink: link
-            )
-            ?? mdImage
-
-        //---
-
-        buffer <<< result
-
-        //---
-
-        return self
-    }
-
     func addSwiftPMCompatibleBadge(
         status: String = "compatible",
         color: String = "brightgreen",
