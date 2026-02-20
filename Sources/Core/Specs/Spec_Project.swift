@@ -62,7 +62,6 @@ extension Spec
         {
             case nameAutoDetectionFailed
             case invalidLocation
-            case nameAutoDetectionFailure
         }
         
         public
