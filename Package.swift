@@ -1,4 +1,4 @@
-// swift-tools-version:5.0
+// swift-tools-version:5.9
 
 import PackageDescription
 
@@ -36,7 +36,7 @@ let package = Package(
             dependencies: [
                 "XCERepoConfigurator",
                 "Version",
-                "Hamcrest"
+                .product(name: "Hamcrest", package: "SwiftHamcrest")
             ],
             path: "Tests/AllTests"
         ),
