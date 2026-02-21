@@ -40,7 +40,8 @@ class SwiftLintTests: XCTestCase
     
     static
     var allTests = [
-        ("testBasicConfig", testBasicConfig)
+        ("testBasicConfig", testBasicConfig),
+        ("testNoExcludesOmitsExcludedSection", testNoExcludesOmitsExcludedSection)
     ]
     
 }
@@ -103,5 +104,19 @@ extension SwiftLintTests
         {
             assertThat(expected == result[i])
         }
+    }
+
+    func testNoExcludesOmitsExcludedSection()
+    {
+        let result = try! SwiftLint
+            .standard()
+            .prepare(
+                at: Some.path
+            )
+            .content
+
+        //---
+
+        XCTAssertFalse(result.contains("excluded:"))
     }
 }

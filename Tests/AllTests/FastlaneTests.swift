@@ -43,7 +43,10 @@ class FastlaneTests: XCTestCase
     var allTests = [
         ("testGemName", testGemName),
         ("testFileNames", testFileNames),
-        ("testDefaultHeader", testDefaultHeader)
+        ("testDefaultHeader", testDefaultHeader),
+        ("testRequireGemsSingle", testRequireGemsSingle),
+        ("testRequireGemsMultipleSorted", testRequireGemsMultipleSorted),
+        ("testRequireGemsDeduplication", testRequireGemsDeduplication)
         ]
 
 }
@@ -159,6 +162,65 @@ extension FastlaneTests
             assertThat(expected == result[i])
         }
     }
-    
+
+    func testRequireGemsSingle()
+    {
+        let result = try! Fastlane
+            .Fastfile(enableRequiredGems: true)
+            .require("cocoapods")
+            .prepare(
+                at: Some.path
+            )
+            .content
+
+        //---
+
+        let lines = result.split(separator: "\n").map(String.init)
+        let requireLines = lines.filter { $0.contains("fastlane_require") }
+
+        assertThat(requireLines.count == 1)
+        assertThat(requireLines[0] == "fastlane_require 'cocoapods'")
+    }
+
+    func testRequireGemsMultipleSorted()
+    {
+        let result = try! Fastlane
+            .Fastfile(enableRequiredGems: true)
+            .require("zebra", "apple")
+            .prepare(
+                at: Some.path
+            )
+            .content
+
+        //---
+
+        let lines = result.split(separator: "\n").map(String.init)
+        let requireLines = lines.filter { $0.contains("fastlane_require") }
+
+        assertThat(requireLines.count == 2)
+        assertThat(requireLines[0] == "fastlane_require 'apple'")
+        assertThat(requireLines[1] == "fastlane_require 'zebra'")
+    }
+
+    func testRequireGemsDeduplication()
+    {
+        let result = try! Fastlane
+            .Fastfile(enableRequiredGems: true)
+            .require("cocoapods")
+            .require("cocoapods")
+            .prepare(
+                at: Some.path
+            )
+            .content
+
+        //---
+
+        let lines = result.split(separator: "\n").map(String.init)
+        let requireLines = lines.filter { $0.contains("fastlane_require") }
+
+        assertThat(requireLines.count == 1)
+        assertThat(requireLines[0] == "fastlane_require 'cocoapods'")
+    }
+
 }
 
