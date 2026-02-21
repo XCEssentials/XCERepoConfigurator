@@ -24,23 +24,43 @@
 
  */
 
-public
-enum OSIdentifier: String
-{
-    case iOS
-    case watchOS
-    case tvOS
-    case macOS
-}
+import Version
 
-// MARK: - Content rendering
+//---
 
 public
-extension OSIdentifier
+enum SwiftPM {}
+
+//---
+
+public
+extension SwiftPM
 {
-    /// The SPM platform function name used in Package.swift, e.g. `macOS`, `iOS`.
-    var spmPlatformId: String
+    /// A package-level dependency declaration.
+    struct PackageDependency
     {
-        return rawValue
+        public
+        let url: String
+
+        public
+        let from: Version
+
+        public
+        init(url: String, from: Version)
+        {
+            self.url = url
+            self.from = from
+        }
+    }
+
+    /// How a target references one of its dependencies.
+    enum TargetDependency
+    {
+        /// A target or product referenced by name only (same-package target or unambiguous product).
+        case byName(String)
+
+        /// An explicit product from an external package.
+        case product(name: String, package: String)
     }
 }
+
