@@ -18,7 +18,8 @@ class SwiftPMTests: XCTestCase
         ("testSingleLibraryMinimal", testSingleLibraryMinimal),
         ("testSingleLibraryWithPlatforms", testSingleLibraryWithPlatforms),
         ("testSingleLibraryWithDependency", testSingleLibraryWithDependency),
-        ("testSingleLibraryWithCustomTestTarget", testSingleLibraryWithCustomTestTarget)
+        ("testSingleLibraryWithCustomTestTarget", testSingleLibraryWithCustomTestTarget),
+        ("testSingleLibraryDefaultSourcesPath", testSingleLibraryDefaultSourcesPath)
     ]
 }
 
@@ -240,6 +241,56 @@ extension SwiftPMTests
                 sourcesPath: "Sources",
                 testTargetName: "CustomTests",
                 testTargetPath: "Tests/Custom"
+            )
+            .prepare()
+            .content
+            .split(separator: "\n")
+
+        //---
+
+        for (i, expected) in targetOutput.enumerated()
+        {
+            assertThat(expected == result[i])
+        }
+    }
+
+    func testSingleLibraryDefaultSourcesPath()
+    {
+        let targetOutput = { """
+            // swift-tools-version:5.9
+
+            import PackageDescription
+
+            let package = Package(
+                name: "MyLib",
+                products: [
+                    .library(
+                        name: "MyLib",
+                        targets: [
+                            "MyLib"
+                        ]
+                    ),
+                ],
+                targets: [
+                    .target(
+                        name: "MyLib",
+                        path: "Sources"
+                    ),
+                    .testTarget(
+                        name: "MyLibAllTests",
+                    ),
+                ]
+            )
+            """
+        }()
+        .split(separator: "\n")
+
+        //---
+
+        let result = SwiftPM
+            .PackageManifest
+            .singleLibrary(
+                name: "MyLib"
             )
             .prepare()
             .content
