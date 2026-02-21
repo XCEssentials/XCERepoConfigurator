@@ -1,11 +1,11 @@
-[![GitHub License](https://img.shields.io/github/license/XCEssentials/RepoConfigurator.svg?longCache=true)](LICENSE)
-[![GitHub Tag](https://img.shields.io/github/tag/XCEssentials/RepoConfigurator.svg?longCache=true)](https://github.com/XCEssentials/RepoConfigurator/tags)
+[![GitHub License](https://img.shields.io/github/license/XCEssentials/XCERepoConfigurator.svg?longCache=true)](LICENSE)
+[![GitHub Tag](https://img.shields.io/github/tag/XCEssentials/XCERepoConfigurator.svg?longCache=true)](https://github.com/XCEssentials/XCERepoConfigurator/tags)
 [![Swift Package Manager Compatible](https://img.shields.io/badge/SPM-compatible-brightgreen.svg?longCache=true)](Package.swift)
 [![Written in Swift](https://img.shields.io/badge/Swift-5.9-orange.svg?longCache=true)](https://swift.org)
 [![Supported platforms](https://img.shields.io/badge/platforms-macOS-blue.svg?longCache=true)](Package.swift)
-[![CI](https://github.com/XCEssentials/RepoConfigurator/actions/workflows/ci.yml/badge.svg)](https://github.com/XCEssentials/RepoConfigurator/actions/workflows/ci.yml)
+[![CI](https://github.com/XCEssentials/XCERepoConfigurator/actions/workflows/ci.yml/badge.svg)](https://github.com/XCEssentials/XCERepoConfigurator/actions/workflows/ci.yml)
 
-# RepoConfigurator
+# XCERepoConfigurator
 
 Generate repo config files using Swift and Xcode.
 
@@ -53,7 +53,3 @@ This is run **manually** by the developer — when bootstrapping a new project, 
 ## Remember
 
 Most of the initializers have some parameters with default values, look into sources to discover all available parameters to configure output file according to your needs.
-
-## Development
-
-This repo uses itself for generating various infrastructure files in the repo, so go to `.setup` folder and run the SPM script located there by executing `swift run`.
