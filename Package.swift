@@ -1,4 +1,4 @@
-// swift-tools-version:5.0
+// swift-tools-version:5.9
 
 import PackageDescription
 
@@ -17,7 +17,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/kylef/PathKit", from: "1.0.0"),
-        .package(url: "https://github.com/mxcl/Version.git", from: "1.0.0"),
+        .package(url: "https://github.com/mxcl/Version.git", from: "2.0.0"),
         .package(url: "https://github.com/JohnSundell/ShellOut.git", from: "2.0.0"),
         .package(url: "https://github.com/nschum/SwiftHamcrest", from: "2.2.1")
     ],
@@ -35,8 +35,7 @@ let package = Package(
             name: "XCERepoConfiguratorAllTests",
             dependencies: [
                 "XCERepoConfigurator",
-                "Version",
-                "SwiftHamcrest"
+                .product(name: "Hamcrest", package: "SwiftHamcrest")
             ],
             path: "Tests/AllTests"
         ),

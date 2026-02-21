@@ -26,7 +26,7 @@
 
 import XCTest
 
-import SwiftHamcrest
+import Hamcrest
 
 // @testable
 import XCERepoConfigurator
@@ -40,7 +40,8 @@ class SwiftLintTests: XCTestCase
     
     static
     var allTests = [
-        ("testBasicConfig", testBasicConfig)
+        ("testBasicConfig", testBasicConfig),
+        ("testNoExcludesOmitsExcludedSection", testNoExcludesOmitsExcludedSection)
     ]
     
 }
@@ -77,7 +78,6 @@ extension SwiftLintTests
 
             excluded: # paths to ignore during linting. Takes precedence over `included`.
               - Resources
-              - Carthage
               - Pods
               - Templates
             """
@@ -104,5 +104,19 @@ extension SwiftLintTests
         {
             assertThat(expected == result[i])
         }
+    }
+
+    func testNoExcludesOmitsExcludedSection()
+    {
+        let result = try! SwiftLint
+            .standard()
+            .prepare(
+                at: Some.path
+            )
+            .content
+
+        //---
+
+        XCTAssertFalse(result.contains("excluded:"))
     }
 }

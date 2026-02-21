@@ -25,6 +25,7 @@
  */
 
 import PathKit
+import Version
 
 //---
 
@@ -68,7 +69,7 @@ extension Fastlane
 
         public
         init(
-            enableRequiredGems: Bool = false // does not work properly yet
+            enableRequiredGems: Bool = false // TODO: verify and enable by default
             )
         {
             self.enableRequiredGems = enableRequiredGems
@@ -84,25 +85,25 @@ extension Fastlane.Fastfile
     func defaultHeader(
         optOutUsage: Bool = false,
         autoUpdateFastlane: Bool = false,
-        minimumFastlaneVersion: VersionString = Defaults.minimumFastlaneVersion
+        minimumFastlaneVersion: Version = Defaults.minimumFastlaneVersion
         ) -> Self
     {
         //swiftlint:disable line_length
 
         header <<< """
             # Customise this file, documentation can be found here:
-            # https://github.com/KrauseFx/fastlane/tree/master/docs
-            # All available actions: https://github.com/KrauseFx/fastlane/blob/master/docs/Actions.md
+            # https://docs.fastlane.tools
+            # All available actions: https://docs.fastlane.tools/actions
             # can also be listed using the `fastlane actions` command
 
             # Change the syntax highlighting to Ruby
             # All lines starting with a # are ignored when running `fastlane`
 
-            # More information about multiple platforms in fastlane: https://github.com/KrauseFx/fastlane/blob/master/docs/Platforms.md
-            # All available actions: https://github.com/KrauseFx/fastlane/blob/master/docs/Actions.md
+            # More information about multiple platforms in fastlane: https://docs.fastlane.tools/advanced/lanes/#platform
+            # All available actions: https://docs.fastlane.tools/actions
 
             # By default, fastlane will send which actions are used
-            # No personal data is shared, more information on https://github.com/fastlane/enhancer
+            # No personal data is shared, more information on https://docs.fastlane.tools/actions/opt_out_usage/
             # Uncomment the following line to opt out
             \(optOutUsage ? "" : "# ")opt_out_usage
 
@@ -126,13 +127,8 @@ extension Fastlane.Fastfile
         _ gems: String...
         ) -> Self
     {
-        gems.joined(separator: "\n")
-            .split(separator: "\n")
-            .map{ "fastlane_require '\($0)'" }
-            .forEach{ requiredGems.insert($0) }
-     
-        //---
-        
+        gems.forEach { requiredGems.insert("fastlane_require '\($0)'") }
+
         return self
     }
     

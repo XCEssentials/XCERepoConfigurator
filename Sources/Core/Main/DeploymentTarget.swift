@@ -27,7 +27,7 @@
 public
 typealias DeploymentTarget = (
     platform: OSIdentifier,
-    minimumVersion: VersionString
+    minimumVersion: String
 )
 
 public

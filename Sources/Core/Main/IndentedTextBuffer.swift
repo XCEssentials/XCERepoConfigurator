@@ -57,17 +57,6 @@ class IndentedTextBuffer
         append("")
     }
     
-//    public
-//    func append(
-//        _ newPieces: [TextFilePiece]
-//        )
-//    {
-//        newPieces.forEach{
-//
-//            self.append($0)
-//        }
-//    }
-
     // MARK: Initializers
 
     public

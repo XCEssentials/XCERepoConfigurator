@@ -62,7 +62,6 @@ extension Spec
         {
             case nameAutoDetectionFailed
             case invalidLocation
-            case nameAutoDetectionFailure
         }
         
         public
@@ -70,7 +69,7 @@ extension Spec
             name: String? = nil,
             summary: String,
             copyrightYear: UInt? = nil,
-            deploymentTargets: KeyValuePairs<OSIdentifier, VersionString>,
+            deploymentTargets: KeyValuePairs<OSIdentifier, String>,
             location: Location? = nil,
             shouldReport: Bool = false
             ) throws

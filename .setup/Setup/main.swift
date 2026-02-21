@@ -20,11 +20,6 @@ let remoteRepo = try Spec.RemoteRepo(
     name: localRepo.name
 )
 
-let travisCI = (
-    address: "https://travis-ci.com/\(remoteRepo.accountName)/\(remoteRepo.name)",
-    branch: "master"
-)
-
 let company = try Spec.Company(
     prefix: "XCE",
     identifier: "com.\(remoteRepo.accountName)"
@@ -95,7 +90,7 @@ try ReadMe()
         link: "Package.swift"
     )
     .add("""
-        [![Build Status](\(travisCI.address).svg?branch=\(travisCI.branch))](\(travisCI.address))
+        [![CI](https://github.com/\(remoteRepo.accountName)/\(remoteRepo.name)/actions/workflows/ci.yml/badge.svg)](https://github.com/\(remoteRepo.accountName)/\(remoteRepo.name)/actions/workflows/ci.yml)
         """
     )
     .add("""
@@ -127,6 +122,16 @@ try License
 
 try GitHub
     .PagesConfig()
+    .prepare()
+    .writeToFileSystem()
+
+// MARK: Write - GitHub - Actions Workflow
+
+try GitHub.Actions.Workflow
+    .standard(
+        name: "CI",
+        branches: ["main", "master"]
+    )
     .prepare()
     .writeToFileSystem()
 

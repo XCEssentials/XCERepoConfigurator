@@ -38,21 +38,9 @@ enum OSIdentifier: String
 public
 extension OSIdentifier
 {
-    var cocoaPodsId: String
+    /// The SPM platform function name used in Package.swift, e.g. `macOS`, `iOS`.
+    var spmPlatformId: String
     {
-        switch self
-        {
-        case .iOS:
-            return "ios"
-
-        case .watchOS:
-            return "watchos"
-
-        case .tvOS:
-            return "tvos"
-
-        case .macOS:
-            return "osx"
-        }
+        return rawValue
     }
 }

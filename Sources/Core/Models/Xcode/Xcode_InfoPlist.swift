@@ -25,6 +25,7 @@
  */
 
 import PathKit
+import Version
 
 //---
 
@@ -64,7 +65,7 @@ extension Xcode
         public
         init(
             for packageType: PackageType,
-            initialVersionString: VersionString = Defaults.initialVersionString,
+            initialVersionString: Version = Defaults.initialVersionString,
             initialBuildNumber: BuildNumber = Defaults.initialBuildNumber,
             preset: Preset?,
             otherEntries: [String] = []
@@ -126,7 +127,7 @@ extension Xcode.InfoPlist
     func prepare(
         for project: Spec.Project,
         target: Spec.Target,
-        initialVersionString: VersionString = Defaults.initialVersionString,
+        initialVersionString: Version = Defaults.initialVersionString,
         initialBuildNumber: BuildNumber = Defaults.initialBuildNumber,
         otherEntries: [String] = [],
         company: Spec.Company? = nil, // for macOS

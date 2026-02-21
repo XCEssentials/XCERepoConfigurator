@@ -24,6 +24,10 @@
  
  */
 
+import Version
+
+//---
+
 /* internal */
 extension Xcode.InfoPlist
 {
@@ -62,7 +66,7 @@ extension Xcode.InfoPlist.Sections
 
     func basic(
         packageType: Xcode.InfoPlist.PackageType,
-        initialVersionString: VersionString,
+        initialVersionString: Version,
         initialBuildNumber: BuildNumber
         )
     {
