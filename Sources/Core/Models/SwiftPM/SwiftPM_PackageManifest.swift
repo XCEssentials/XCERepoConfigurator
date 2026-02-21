@@ -271,7 +271,7 @@ extension SwiftPM.PackageManifest
         platforms: DeploymentTargets = [],
         dependencies: [SwiftPM.PackageDependency] = [],
         targetDependencies: [SwiftPM.TargetDependency] = [],
-        sourcesPath: String,
+        sourcesPath: String = "Sources",
         testTargetName: String? = nil,
         testTargetPath: String? = nil,
         testTargetDependencies: [SwiftPM.TargetDependency] = []
