@@ -8,6 +8,7 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(FrameworkConfigExample.allTests),
         testCase(GitHubActionsTests.allTests),
         testCase(GitIgnoreTests.allTests),
+        testCase(ReadMeTests.allTests),
         testCase(SwiftLintTests.allTests),
         testCase(SwiftPMTests.allTests),
         testCase(UtilsTests.allTests),
